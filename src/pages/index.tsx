@@ -1,5 +1,5 @@
-import { Head } from '@/components/layout/Head';
-import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants';
+import { Head } from "@/components/layout/Head";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
 
 const Home = () => {
   return (

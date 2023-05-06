@@ -1,5 +1,5 @@
-import NextHead from 'next/head';
-import { SITE_DESCRIPTION, SITE_NAME } from '@/lib/constants';
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
+import NextHead from "next/head";
 
 interface Props {
   title?: string;

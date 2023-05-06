@@ -1,10 +1,10 @@
-import { ExternalLink } from '@/components/layout/ExternalLink';
-import { ThemeSwitcher } from '@/components/layout/ThemeSwitcher';
-import { COMPANY_NAME, COMPANY_URL, GITHUB_URL, TWITTER_URL } from '@/lib/constants';
+import { ExternalLink } from "@/components/layout/ExternalLink";
+import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
+import { COMPANY_NAME, COMPANY_URL, GITHUB_URL, TWITTER_URL } from "@/lib/constants";
 
 const navigation = [
   {
-    name: 'Twitter',
+    name: "Twitter",
     href: TWITTER_URL,
     icon: (props: any) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -13,7 +13,7 @@ const navigation = [
     ),
   },
   {
-    name: 'GitHub',
+    name: "GitHub",
     href: GITHUB_URL,
     icon: (props: any) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>

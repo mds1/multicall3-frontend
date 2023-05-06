@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import logo from 'public/logo.svg';
-import { COMPANY_NAME } from '@/lib/constants';
+import { COMPANY_NAME } from "@/lib/constants";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import logo from "public/logo.svg";
 
 export const Header = () => {
   const currentPath = useRouter().pathname;
 
   const NavLink = (props: { path: string; label: string; className?: string }) => {
-    const activeClass = props.path === currentPath ? 'font-bold' : '';
+    const activeClass = props.path === currentPath ? "font-bold" : "";
     return (
       <Link
         href={props.path}

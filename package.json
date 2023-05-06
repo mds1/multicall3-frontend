@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fmt": "rome check --apply-unsafe src/; rome format --write src/"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -24,6 +25,7 @@
     "eslint": "8.39.0",
     "eslint-config-next": "13.4.0",
     "postcss": "8.4.23",
+    "rome": "12.0.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   }

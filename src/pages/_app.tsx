@@ -1,8 +1,8 @@
-import * as React from 'react';
-import type { AppProps } from 'next/app';
-import { ThemeProvider } from 'next-themes';
-import Layout from '@/components/layout/Layout';
-import '@/styles/globals.css';
+import Layout from "@/components/layout/Layout";
+import "@/styles/globals.css";
+import { ThemeProvider } from "next-themes";
+import type { AppProps } from "next/app";
+import * as React from "react";
 
 function App({ Component, pageProps }: AppProps) {
   const [mounted, setMounted] = React.useState(false);
