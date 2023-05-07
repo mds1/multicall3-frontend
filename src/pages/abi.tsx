@@ -9,7 +9,7 @@ import {
 import { classNames } from "@/lib/utils";
 import { copyToClipboard } from "@/lib/utils";
 import { Tab } from "@headlessui/react";
-import { ClipboardDocumentIcon } from "@heroicons/react/24/solid";
+import { ArrowDownTrayIcon, ClipboardDocumentIcon } from "@heroicons/react/24/solid";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Prism from "prismjs";
@@ -26,6 +26,8 @@ const tabs = [
     imgSize: "sm",
     language: "solidity",
     abi: MULTICALL_SOLIDITY_INTERFACE,
+    filename: "IMulticall3.sol",
+    mimeType: "text/plain",
   },
   {
     name: "ethers.js",
@@ -33,6 +35,8 @@ const tabs = [
     imgUri: "/ethersjs.png",
     language: "typescript",
     abi: MULTICALL_ABI_ETHERS,
+    filename: "IMulticall3.ts",
+    mimeType: "text/plain",
   },
   {
     name: "viem",
@@ -40,6 +44,8 @@ const tabs = [
     imgUri: "/viem.png",
     language: "typescript",
     abi: MULTICALL_ABI_VIEM,
+    filename: "IMulticall3.ts",
+    mimeType: "text/plain",
   },
   {
     name: "JSON",
@@ -48,6 +54,8 @@ const tabs = [
     imgSize: "sm",
     language: "json",
     abi: JSON.stringify(MULTICALL_ABI, null, 2),
+    filename: "IMulticall3.json",
+    mimeType: "application/json",
   },
   {
     name: "JSON (minified)",
@@ -56,6 +64,8 @@ const tabs = [
     imgSize: "sm",
     language: "json",
     abi: JSON.stringify(MULTICALL_ABI),
+    filename: "IMulticall3.json",
+    mimeType: "application/json",
   },
 ];
 
@@ -70,16 +80,11 @@ const indexToHash = (index: number) => {
 };
 
 const Abi = () => {
+  // -------- Syntax Highlighting --------
   const { theme } = useTheme();
   const [selectedTab, setSelectedTab] = useState(hashToIndex());
   const [showNotification, setShowNotification] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  const onCopy = (text: string) => {
-    copyToClipboard(text);
-    setShowNotification(true);
-    setTimeout(() => setShowNotification(false), 3000);
-  };
 
   const onTabChange = (index: number) => {
     // We set `isLoading` to true to fade out the content while the tab is changing, to avoid
@@ -124,6 +129,32 @@ const Abi = () => {
     importTheme();
   }, [theme]);
 
+  // -------- Download and Copy ABI --------
+  const onDownload = (content: string, filename: string, mimeType: string) => {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = filename;
+    link.style.display = "none";
+
+    document.body.appendChild(link);
+    link.click();
+
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 100);
+  };
+
+  const onCopy = (text: string) => {
+    copyToClipboard(text);
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+  };
+
+  // -------- Render --------
   return (
     <>
       <Head title="ABI" description="Multicall3 ABI in various formats" />
@@ -175,7 +206,18 @@ const Abi = () => {
                 className="relative mt-4 text-sm inline-block max-w-full max-h-screen overflow-x-auto overflow-y-auto shadow-md"
               >
                 <button
-                  className="absolute top-4 right-3 z-10 p-1 border border-gray-600 dark:border-gray-300 rounded-md focus:outline-0"
+                  className="absolute top-4 right-3 mr-10 z-10 p-1 border border-gray-500 dark:border-gray-400 rounded-md focus:outline-0 hover:border-black hover:dark:border-gray-200"
+                  style={{
+                    // Blur the background behind the copy button.
+                    background: "rgba(0, 0, 0, 0.0)",
+                    backdropFilter: "blur(4px)",
+                  }}
+                  onClick={() => onDownload(tab.abi, tab.filename, tab.mimeType)}
+                >
+                  <ArrowDownTrayIcon className="h-4 w-4" />
+                </button>
+                <button
+                  className="absolute top-4 right-3 z-10 p-1 border border-gray-500 dark:border-gray-400 rounded-md focus:outline-0 hover:border-black hover:dark:border-gray-200"
                   style={{
                     // Blur the background behind the copy button.
                     background: "rgba(0, 0, 0, 0.0)",
@@ -183,7 +225,7 @@ const Abi = () => {
                   }}
                   onClick={() => onCopy(tab.abi)}
                 >
-                  <ClipboardDocumentIcon className="h-6 w-6" />
+                  <ClipboardDocumentIcon className="h-4 w-4" />
                 </button>
                 <pre className="rounded-lg">
                   <code className={`language-${tab.language}`}>{tab.abi}</code>
