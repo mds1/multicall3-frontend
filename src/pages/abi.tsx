@@ -1,7 +1,9 @@
 import { Head } from "@/components/layout/Head";
 import { MULTICALL_ABI, MULTICALL_SOLIDITY_INTERFACE } from "@/lib/constants";
 import { classNames } from "@/lib/utils";
+import { copyToClipboard } from "@/lib/utils";
 import { Tab } from "@headlessui/react";
+import { ClipboardDocumentIcon } from "@heroicons/react/24/solid";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Prism from "prismjs";
@@ -99,7 +101,7 @@ const Abi = () => {
                         width={20}
                         alt="JSON logo"
                         className="mr-2"
-                        style={{ filter: "invert(1)" }}
+                        style={{ filter: theme === "dark" ? "invert(1)" : undefined }}
                       />
                       {tab.name}
                     </div>
@@ -113,8 +115,14 @@ const Abi = () => {
               return (
                 <Tab.Panel
                   key={tab.name}
-                  className="mt-4 text-sm inline-block max-h-screen overflow-y-auto shadow-md"
+                  className="relative mt-4 text-sm inline-block max-h-screen overflow-y-auto shadow-md"
                 >
+                  <button
+                    className="absolute top-4 right-3 z-10 p-1 border border-gray-600 dark:border-gray-300 rounded-md focus:outline-0"
+                    onClick={() => copyToClipboard(tab.abi)}
+                  >
+                    <ClipboardDocumentIcon className="h-6 w-6" />
+                  </button>
                   <pre>
                     <code className={`language-${tab.language}`}>{tab.abi}</code>
                   </pre>
