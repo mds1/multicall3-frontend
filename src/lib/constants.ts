@@ -286,7 +286,7 @@ export const MULTICALL_ABI_ETHERS = `[
 ]`;
 
 export const MULTICALL_SOLIDITY_INTERFACE = `// SPDX-License-Identifier: MIT
-pragma solidity >=0.6.2;
+pragma solidity >=0.5.0;
 pragma experimental ABIEncoderV2;
 
 interface IMulticall3 {
