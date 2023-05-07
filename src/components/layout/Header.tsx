@@ -1,8 +1,6 @@
-import { COMPANY_NAME } from "@/lib/constants";
-import Image from "next/image";
+import { COMPANY_NAME, SITE_NAME } from "@/lib/constants";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import logo from "public/logo.svg";
 
 export const Header = () => {
   const currentPath = useRouter().pathname;
@@ -25,7 +23,8 @@ export const Header = () => {
       <div>
         <Link href="/" className="flex">
           <span className="sr-only">{COMPANY_NAME}</span>
-          <Image className="h-8 w-auto rounded-full sm:h-10" src={logo} alt="logo" />
+          <span className="font-bold font-mono text-blue-800 dark:text-blue-300">{SITE_NAME}</span>
+          {/* <Image className="h-8 w-auto rounded-full sm:h-10" src={logo} alt="logo" /> */}
         </Link>
       </div>
 
