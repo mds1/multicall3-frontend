@@ -1,6 +1,7 @@
 import { Head } from "@/components/layout/Head";
 import { ArrowTopRightOnSquareIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
+import { useEffect, useRef } from "react";
 
 const deployments = [
   {
@@ -376,6 +377,23 @@ const deployments = [
 ];
 
 const Deployments = () => {
+  // -------- Focus search input when user presses Cmd/Ctrl + K --------
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const modifierKey = navigator.userAgent.includes("Mac") ? "Cmd" : "Ctrl";
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // -------- Sorting and filtering --------
   const [sortField, setSortField] = useState(null as "name" | "chainId" | null);
   const [sortDirection, setSortDirection] = useState("ascending");
   const [search, setSearch] = useState("");
@@ -408,19 +426,24 @@ const Deployments = () => {
       deployment.chainId.toString().includes(search),
   );
 
+  // -------- Render --------
   return (
     <>
       <Head title="Deployments" description="Multicall3 deployments" />
       <div className="flex justify-center">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block py-2 align-middle sm:px-6 lg:px-8">
-            <div className="mb-4">
+            <div className="mb-4 relative">
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 opacity-60 pointer-events-none">
+                {modifierKey} + K
+              </span>
               <input
                 type="text"
-                className="w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block border-gray-300 rounded-md px-4 py-2"
+                className="w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 block border-gray-300 rounded-md px-4 py-2"
                 placeholder="Search..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                ref={searchInputRef}
               />
             </div>
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
