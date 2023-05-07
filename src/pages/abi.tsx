@@ -1,12 +1,31 @@
 import { Head } from "@/components/layout/Head";
+import { MULTICALL_ABI, MULTICALL_SOLIDITY_INTERFACE } from "@/lib/constants";
 import { classNames } from "@/lib/utils";
 import { Tab } from "@headlessui/react";
 import Image from "next/image";
-import { useState } from "react";
+import Prism from "prismjs";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-solidity";
+import "prismjs/themes/prism.css";
+import { useEffect, useState } from "react";
 
 const tabs = [
-  { id: 0, name: "JSON", href: "#json", imgUri: "/json.svg", current: false },
-  { id: 1, name: "Solidity", href: "#solidity", imgUri: "/solidity.png", current: true },
+  {
+    id: 0,
+    name: "JSON",
+    href: "#json",
+    imgUri: "/json.svg",
+    language: "json",
+    abi: JSON.stringify(MULTICALL_ABI, null, 2),
+  },
+  {
+    id: 1,
+    name: "Solidity",
+    href: "#solidity",
+    imgUri: "/solidity.png",
+    language: "solidity",
+    abi: MULTICALL_SOLIDITY_INTERFACE,
+  },
 ];
 
 const hashToId = () => {
@@ -22,11 +41,25 @@ const idToHash = (id: number) => {
 
 const Abi = () => {
   const [selectedTab, setSelectedTab] = useState(hashToId());
+  const [isLoading, setIsLoading] = useState(true);
 
   const onTabChange = (index: number) => {
+    // We set `isLoading` to true to fade out the content while the tab is changing, to avoid
+    // briefly showing un-highlighted code. This is set to false again in the `useEffect` hook.
+    setIsLoading(true);
     setSelectedTab(index);
     window.location.hash = idToHash(index);
   };
+
+  // This is required to re-highlight the code when the tab changes, and we use `setTimeout` with
+  // a delay of 0 to ensure that the code is highlighted after the tab has changed. Otherwise the
+  // `highlightAll` function runs before the code has been updated, so the code is not highlighted.
+  useEffect(() => {
+    setTimeout(() => {
+      Prism.highlightAll();
+      setIsLoading(false);
+    }, 0);
+  }, [selectedTab]);
 
   return (
     <>
@@ -51,7 +84,7 @@ const Abi = () => {
                         height={20}
                         width={20}
                         alt="JSON logo"
-                        className='mr-2'
+                        className="mr-2"
                       />
                       {tab.name}
                     </div>
@@ -60,11 +93,16 @@ const Abi = () => {
               );
             })}
           </Tab.List>
-          <Tab.Panels className="text-center">
+          <Tab.Panels className="text-center" style={{ opacity: isLoading ? 0 : 1 }}>
             {tabs.map((tab) => {
               return (
-                <Tab.Panel key={tab.name} className="mt-4">
-                  {tab.name}
+                <Tab.Panel
+                  key={tab.name}
+                  className="mt-4 text-sm inline-block max-h-screen overflow-y-auto"
+                >
+                  <pre>
+                    <code className={`language-${tab.language}`}>{tab.abi}</code>
+                  </pre>
                 </Tab.Panel>
               );
             })}

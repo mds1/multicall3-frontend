@@ -7,7 +7,7 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className='flex h-screen flex-col justify-between bg-gray-100 dark:bg-gray-900'>
+    <div className='flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900'>
       <Header />
       <main className='h-full w-full px-4 text-gray-800 dark:text-gray-100 sm:px-6 md:justify-between lg:px-8'>
         {children}
