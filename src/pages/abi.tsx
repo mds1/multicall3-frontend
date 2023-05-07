@@ -92,11 +92,26 @@ const Abi = () => {
   }, [selectedTab]);
 
   // We conditionally import the Prism theme based on the current theme, to adjust the syntax
-  // highlighting to the theme.
+  // highlighting to the theme. The logic in the `importTheme` function combined with the presence
+  // of the `prism-light.css` and `prism-dark.css` files in the `public` folder is what allows us
+  // to ensure all styles from the light theme are removed when the user toggles to the dark theme,
+  // and vice versa.
   useEffect(() => {
     const importTheme = async () => {
-      if (theme === "dark") await import("prismjs/themes/prism-tomorrow.css");
-      else await import("prismjs/themes/prism.css");
+      // Define the new stylesheet href based on the theme and get it's element.
+      const newStylesheetHref = theme === "dark" ? "/prism-dark.css" : "/prism-light.css";
+      const existingStylesheet = document.getElementById("dynamic-stylesheet");
+
+      // If there's an existing stylesheet, remove it.
+      existingStylesheet?.parentNode?.removeChild(existingStylesheet);
+
+      // Create a new element for the new stylesheet, and append the stylesheet to the head.
+      const newStylesheet = document.createElement("link");
+      newStylesheet.rel = "stylesheet";
+      newStylesheet.type = "text/css";
+      newStylesheet.href = newStylesheetHref;
+      newStylesheet.id = "dynamic-stylesheet";
+      document.head.appendChild(newStylesheet);
     };
     importTheme();
   }, [theme]);
@@ -155,7 +170,7 @@ const Abi = () => {
                   >
                     <ClipboardDocumentIcon className="h-6 w-6" />
                   </button>
-                  <pre>
+                  <pre className="rounded-lg">
                     <code className={`language-${tab.language}`}>{tab.abi}</code>
                   </pre>
                 </Tab.Panel>
