@@ -411,7 +411,7 @@ const Deployments = () => {
   return (
     <>
       <Head title="Deployments" description="Multicall3 deployments" />
-      <div className="mt-8 flex justify-center">
+      <div className="flex justify-center">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block py-2 align-middle sm:px-6 lg:px-8">
             <div className="mb-4">
