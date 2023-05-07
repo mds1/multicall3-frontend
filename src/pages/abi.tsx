@@ -1,4 +1,5 @@
 import { Head } from "@/components/layout/Head";
+import { Notification } from "@/components/ui/Notification";
 import {
   MULTICALL_ABI,
   MULTICALL_ABI_ETHERS,
@@ -71,7 +72,14 @@ const indexToHash = (index: number) => {
 const Abi = () => {
   const { theme } = useTheme();
   const [selectedTab, setSelectedTab] = useState(hashToIndex());
+  const [showNotification, setShowNotification] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const onCopy = (text: string) => {
+    copyToClipboard(text);
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+  };
 
   const onTabChange = (index: number) => {
     // We set `isLoading` to true to fade out the content while the tab is changing, to avoid
@@ -119,6 +127,14 @@ const Abi = () => {
   return (
     <>
       <Head title="ABI" description="Multicall3 ABI in various formats" />
+
+      <Notification
+        show={showNotification}
+        setShow={setShowNotification}
+        kind="success"
+        title={`${tabs[selectedTab].name} ABI copied to clipboard!`}
+      />
+
       <div className="content-center">
         <Tab.Group selectedIndex={selectedTab} onChange={onTabChange}>
           <Tab.List className="border-b border-gray-200 dark:border-gray-700 -mb-px flex space-x-8 justify-center">
@@ -166,7 +182,7 @@ const Abi = () => {
                       background: "rgba(0, 0, 0, 0.0)",
                       backdropFilter: "blur(4px)",
                     }}
-                    onClick={() => copyToClipboard(tab.abi)}
+                    onClick={() => onCopy(tab.abi)}
                   >
                     <ClipboardDocumentIcon className="h-6 w-6" />
                   </button>
