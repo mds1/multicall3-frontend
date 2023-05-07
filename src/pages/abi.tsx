@@ -135,7 +135,6 @@ const Abi = () => {
         title={`${tabs[selectedTab].name} ABI copied to clipboard!`}
       />
 
-      <div className="content-center">
         <Tab.Group selectedIndex={selectedTab} onChange={onTabChange}>
           <Tab.List className="border-b border-gray-200 dark:border-gray-700 -mb-px flex space-x-8 justify-center">
             {tabs.map((tab) => {
@@ -194,7 +193,6 @@ const Abi = () => {
             })}
           </Tab.Panels>
         </Tab.Group>
-      </div>
     </>
   );
 };
