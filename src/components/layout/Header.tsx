@@ -31,7 +31,7 @@ export const Header = () => {
 
       <div>
         <NavLink path="/deployments" label="Deployments" className="mr-4" />
-        <NavLink path="/abi" label="ABIs" className="mr-4" />
+        <NavLink path="/abi" label="ABI" className="mr-4" />
         <NavLink path="https://github.com/mds1/multicall" label="Documentation" />
       </div>
     </div>
