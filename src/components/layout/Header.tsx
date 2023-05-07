@@ -13,6 +13,7 @@ export const Header = () => {
       <Link
         href={props.path}
         className={`text-base text-gray-500 dark:text-gray-400 ${activeClass} ${props.className}`}
+        target={props.path.startsWith("http") ? "_blank" : undefined}
       >
         {props.label}
       </Link>
@@ -31,7 +32,7 @@ export const Header = () => {
       <div>
         <NavLink path="/deployments" label="Deployments" className="mr-4" />
         <NavLink path="/abi" label="ABIs" className="mr-4" />
-        <NavLink path="/documentation" label="Documentation" />
+        <NavLink path="https://github.com/mds1/multicall" label="Documentation" />
       </div>
     </div>
   );
