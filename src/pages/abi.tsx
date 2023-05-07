@@ -2,11 +2,11 @@ import { Head } from "@/components/layout/Head";
 import { MULTICALL_ABI, MULTICALL_SOLIDITY_INTERFACE } from "@/lib/constants";
 import { classNames } from "@/lib/utils";
 import { Tab } from "@headlessui/react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Prism from "prismjs";
 import "prismjs/components/prism-json";
 import "prismjs/components/prism-solidity";
-import "prismjs/themes/prism.css";
 import { useEffect, useState } from "react";
 
 const tabs = [
@@ -40,6 +40,7 @@ const idToHash = (id: number) => {
 };
 
 const Abi = () => {
+  const { theme } = useTheme();
   const [selectedTab, setSelectedTab] = useState(hashToId());
   const [isLoading, setIsLoading] = useState(true);
 
@@ -60,6 +61,19 @@ const Abi = () => {
       setIsLoading(false);
     }, 0);
   }, [selectedTab]);
+
+  // We conditionally import the Prism theme based on the current theme, to adjust the syntax
+  // highlighting to the theme.
+  useEffect(() => {
+    const importTheme = async () => {
+      if (theme === "dark") {
+        await import("prismjs/themes/prism-tomorrow.css");
+      } else {
+        await import("prismjs/themes/prism.css");
+      }
+    };
+    importTheme();
+  }, [theme]);
 
   return (
     <>
@@ -85,6 +99,7 @@ const Abi = () => {
                         width={20}
                         alt="JSON logo"
                         className="mr-2"
+                        style={{ filter: "invert(1)" }}
                       />
                       {tab.name}
                     </div>
@@ -98,7 +113,7 @@ const Abi = () => {
               return (
                 <Tab.Panel
                   key={tab.name}
-                  className="mt-4 text-sm inline-block max-h-screen overflow-y-auto"
+                  className="mt-4 text-sm inline-block max-h-screen overflow-y-auto shadow-md"
                 >
                   <pre>
                     <code className={`language-${tab.language}`}>{tab.abi}</code>
