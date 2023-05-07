@@ -1,5 +1,10 @@
 import { Head } from "@/components/layout/Head";
-import { MULTICALL_ABI, MULTICALL_SOLIDITY_INTERFACE } from "@/lib/constants";
+import {
+  MULTICALL_ABI,
+  MULTICALL_ABI_ETHERS,
+  MULTICALL_ABI_VIEM,
+  MULTICALL_SOLIDITY_INTERFACE,
+} from "@/lib/constants";
 import { classNames } from "@/lib/utils";
 import { copyToClipboard } from "@/lib/utils";
 import { Tab } from "@headlessui/react";
@@ -9,41 +14,63 @@ import Image from "next/image";
 import Prism from "prismjs";
 import "prismjs/components/prism-json";
 import "prismjs/components/prism-solidity";
+import "prismjs/components/prism-typescript";
 import { useEffect, useState } from "react";
 
 const tabs = [
   {
-    id: 0,
+    name: "Solidity",
+    href: "#solidity",
+    imgUri: "/solidity.png",
+    imgSize: "sm",
+    language: "solidity",
+    abi: MULTICALL_SOLIDITY_INTERFACE,
+  },
+  {
+    name: "ethers.js",
+    href: "#ethers-js",
+    imgUri: "/ethersjs.png",
+    language: "typescript",
+    abi: MULTICALL_ABI_ETHERS,
+  },
+  {
+    name: "viem",
+    href: "#viem",
+    imgUri: "/viem.png",
+    language: "typescript",
+    abi: MULTICALL_ABI_VIEM,
+  },
+  {
     name: "JSON",
     href: "#json",
     imgUri: "/json.svg",
+    imgSize: "sm",
     language: "json",
     abi: JSON.stringify(MULTICALL_ABI, null, 2),
   },
   {
-    id: 1,
-    name: "Solidity",
-    href: "#solidity",
-    imgUri: "/solidity.png",
-    language: "solidity",
-    abi: MULTICALL_SOLIDITY_INTERFACE,
+    name: "JSON (minified)",
+    href: "#json-minified",
+    imgUri: "/json.svg",
+    imgSize: "sm",
+    language: "json",
+    abi: JSON.stringify(MULTICALL_ABI),
   },
 ];
 
-const hashToId = () => {
-  const anchor = window.location.hash || "#json";
-  const tab = tabs.find((tab) => tab.href === anchor);
-  return tab ? tab.id : 0;
+const hashToIndex = () => {
+  const anchor = window.location.hash || "#solidity";
+  const index = tabs.findIndex((tab) => tab.href === anchor);
+  return index === -1 ? 0 : index;
 };
 
-const idToHash = (id: number) => {
-  const tab = tabs.find((tab) => tab.id === id);
-  return tab ? tab.href : "#json";
+const indexToHash = (index: number) => {
+  return tabs[index].href || "#solidity";
 };
 
 const Abi = () => {
   const { theme } = useTheme();
-  const [selectedTab, setSelectedTab] = useState(hashToId());
+  const [selectedTab, setSelectedTab] = useState(hashToIndex());
   const [isLoading, setIsLoading] = useState(true);
 
   const onTabChange = (index: number) => {
@@ -51,7 +78,7 @@ const Abi = () => {
     // briefly showing un-highlighted code. This is set to false again in the `useEffect` hook.
     setIsLoading(true);
     setSelectedTab(index);
-    window.location.hash = idToHash(index);
+    window.location.hash = indexToHash(index);
   };
 
   // This is required to re-highlight the code when the tab changes, and we use `setTimeout` with
@@ -68,11 +95,8 @@ const Abi = () => {
   // highlighting to the theme.
   useEffect(() => {
     const importTheme = async () => {
-      if (theme === "dark") {
-        await import("prismjs/themes/prism-tomorrow.css");
-      } else {
-        await import("prismjs/themes/prism.css");
-      }
+      if (theme === "dark") await import("prismjs/themes/prism-tomorrow.css");
+      else await import("prismjs/themes/prism.css");
     };
     importTheme();
   }, [theme]);
@@ -97,11 +121,14 @@ const Abi = () => {
                     >
                       <Image
                         src={tab.imgUri}
-                        height={20}
-                        width={20}
+                        height={tab.imgSize === "sm" ? 16 : 20}
+                        width={tab.imgSize === "sm" ? 16 : 20}
                         alt="JSON logo"
                         className="mr-2"
-                        style={{ filter: theme === "dark" ? "invert(1)" : undefined }}
+                        style={{
+                          filter:
+                            theme === "dark" ? "invert(1) brightness(1) saturate(0)" : undefined,
+                        }}
                       />
                       {tab.name}
                     </div>
@@ -115,10 +142,15 @@ const Abi = () => {
               return (
                 <Tab.Panel
                   key={tab.name}
-                  className="relative mt-4 text-sm inline-block max-h-screen overflow-y-auto shadow-md"
+                  className="relative mt-4 text-sm inline-block max-w-full max-h-screen overflow-x-auto overflow-y-auto shadow-md"
                 >
                   <button
                     className="absolute top-4 right-3 z-10 p-1 border border-gray-600 dark:border-gray-300 rounded-md focus:outline-0"
+                    style={{
+                      // Blur the background behind the copy button.
+                      background: "rgba(0, 0, 0, 0.0)",
+                      backdropFilter: "blur(4px)",
+                    }}
                     onClick={() => copyToClipboard(tab.abi)}
                   >
                     <ClipboardDocumentIcon className="h-6 w-6" />
