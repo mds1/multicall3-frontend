@@ -379,7 +379,7 @@ const deployments = [
 const Deployments = () => {
   // -------- Focus search input when user presses Cmd/Ctrl + K --------
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const modifierKey = navigator.userAgent.includes("Mac") ? "Cmd" : "Ctrl";
+  const modifierKey = navigator.userAgent.includes("Mac") ? "⌘ " : "Ctrl + ";
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -434,8 +434,8 @@ const Deployments = () => {
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block py-2 align-middle sm:px-6 lg:px-8">
             <div className="mb-4 relative">
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 opacity-60 pointer-events-none">
-                {modifierKey} + K
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 dark:text-gray-300 opacity-60 dark:opacity-70 pointer-events-none">
+                {modifierKey}K
               </span>
               <input
                 type="text"
@@ -448,32 +448,32 @@ const Deployments = () => {
             </div>
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-300">
-                <thead className="bg-gray-50">
+                <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-50 sm:pl-6"
                     >
                       <div
-                        className="group inline-flex cursor-pointer p-1 rounded-md hover:bg-gray-200"
+                        className="group inline-flex cursor-pointer p-1 rounded-md hover:bg-gray-200 hover:dark:bg-gray-700"
                         onClick={() => onHeaderClick("name")}
                       >
                         Name
-                        <span className="ml-2 flex-none rounded text-gray-900">
+                        <span className="ml-2 flex-none rounded text-gray-900 dark:text-gray-50">
                           <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
                       </div>
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-50"
                     >
                       <div
-                        className="group inline-flex cursor-pointer p-1 rounded-md hover:bg-gray-200"
+                        className="group inline-flex cursor-pointer p-1 rounded-md hover:bg-gray-200 hover:dark:bg-gray-700"
                         onClick={() => onHeaderClick("chainId")}
                       >
                         Chain ID
-                        <span className="ml-2 flex-none rounded text-gray-900">
+                        <span className="ml-2 flex-none rounded text-gray-900 dark:text-gray-50">
                           <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
                       </div>
@@ -487,13 +487,13 @@ const Deployments = () => {
                   {filteredDeployments.map((deployment) => (
                     <tr
                       key={deployment.chainId}
-                      className='group'
+                      className='group dark:bg-gray-800'
                       onClick={() => window.open(deployment.url, "_blank", "noopener,noreferrer")}
                     >
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-50 sm:pl-6">
                         {deployment.name}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
                         {deployment.chainId}
                       </td>
                       <td className="relative pr-4">
