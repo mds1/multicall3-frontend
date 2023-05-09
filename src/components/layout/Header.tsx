@@ -19,7 +19,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start md:space-x-10">
+    <div className="flex items-center justify-between px-4 py-6 sm:px-6 md:space-x-10">
       <div>
         <Link href="/" className="flex">
           <span className="sr-only">{COMPANY_NAME}</span>

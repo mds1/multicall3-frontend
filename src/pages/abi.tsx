@@ -167,7 +167,7 @@ const Abi = () => {
       />
 
       <Tab.Group selectedIndex={selectedTab} onChange={onTabChange}>
-        <Tab.List className="border-b border-gray-200 dark:border-gray-700 -mb-px flex space-x-8 justify-center">
+        <Tab.List className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto whitespace-nowrap md:flex md:justify-center space-x-4 md:space-x-8">
           {tabs.map((tab) => {
             return (
               <Tab key={tab.name} className="focus:outline-0">
