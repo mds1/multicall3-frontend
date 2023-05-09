@@ -3,7 +3,7 @@ export const LoadingSpinner = () => {
     <div className='mx-auto flex h-8 w-8 items-center justify-center rounded-full'>
       <svg
         className='animate-spin'
-        style={{ animation: "spin 3s linear infinite" }}
+        style={{ animation: 'spin 3s linear infinite' }}
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
         viewBox='0 0 24 24'
