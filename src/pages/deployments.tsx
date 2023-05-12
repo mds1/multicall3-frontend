@@ -79,7 +79,7 @@ const Deployments = () => {
   const loadingDiv = () => (
     <div className='mt-8'>
       <LoadingSpinner />
-      <p className='mt-4 italic text-gray-500 dark:text-gray-300'>Fetching deployments...</p>
+      <p className='mt-4 italic text-gray-400'>Fetching deployments...</p>
     </div>
   );
 
