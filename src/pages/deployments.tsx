@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowTopRightOnSquareIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { ExternalLink } from '@/components/layout/ExternalLink';
 import { Head } from '@/components/layout/Head';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
@@ -112,6 +113,90 @@ const Deployments = () => {
     </main>
   );
 
+  const noDeploymentsDiv = () => (
+    <div className='mt-10 grid min-h-full place-items-center'>
+      <div className='text-center'>
+        <p className='font-bold tracking-tight text-gray-900 dark:text-gray-50'>
+          No deployments found
+        </p>
+        <p className='mt-2 text-base leading-7 text-gray-600 dark:text-gray-400'>
+          If you need Multicall3 deployed on a new chain,
+          <br />
+          please{' '}
+          <ExternalLink
+            href='https://github.com/mds1/multicall/issues/new'
+            text='open an issue'
+          />{' '}
+          on GitHub.
+        </p>
+      </div>
+    </div>
+  );
+
+  const showDeploymentsDiv = () => (
+    <div className='overflow-hidden rounded-lg shadow ring-1 ring-black ring-opacity-5'>
+      <table className='min-w-full divide-y divide-gray-300'>
+        <thead className='bg-gray-50 dark:bg-gray-700'>
+          <tr>
+            <th
+              scope='col'
+              className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-50 sm:pl-6'
+            >
+              <div
+                className='group inline-flex cursor-pointer rounded-md p-1 hover:bg-gray-200 hover:dark:bg-gray-700'
+                onClick={() => onHeaderClick('name')}
+              >
+                Name
+                <span className='ml-2 flex-none rounded text-gray-900 dark:text-gray-50'>
+                  <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
+                </span>
+              </div>
+            </th>
+            <th
+              scope='col'
+              className='px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-50'
+            >
+              <div
+                className='group inline-flex cursor-pointer rounded-md p-1 hover:bg-gray-200 hover:dark:bg-gray-700'
+                onClick={() => onHeaderClick('chainId')}
+              >
+                Chain ID
+                <span className='ml-2 flex-none rounded text-gray-900 dark:text-gray-50'>
+                  <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
+                </span>
+              </div>
+            </th>
+            <th scope='col' className='relative pr-4'>
+              <span className='sr-only'>Edit</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody className='cursor-pointer divide-y divide-gray-200 bg-white'>
+          {filteredDeployments.map((deployment) => (
+            <tr
+              key={deployment.chainId}
+              className='group dark:bg-gray-800'
+              onClick={() => window.open(deployment.url, '_blank', 'noopener,noreferrer')}
+            >
+              <td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-50 sm:pl-6'>
+                {deployment.name}
+              </td>
+              <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400'>
+                {deployment.chainId}
+              </td>
+              <td className='relative pr-4'>
+                <div className='hyperlink opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
+                  <ArrowTopRightOnSquareIcon className='h-4 w-4' aria-hidden='true' />
+                  <span className='sr-only'>Open contract in block explorer</span>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
   const deploymentsTableDiv = () => (
     <>
       <div className='relative mb-4'>
@@ -127,67 +212,8 @@ const Deployments = () => {
           ref={searchInputRef}
         />
       </div>
-      <div className='overflow-hidden rounded-lg shadow ring-1 ring-black ring-opacity-5'>
-        <table className='min-w-full divide-y divide-gray-300'>
-          <thead className='bg-gray-50 dark:bg-gray-700'>
-            <tr>
-              <th
-                scope='col'
-                className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-50 sm:pl-6'
-              >
-                <div
-                  className='group inline-flex cursor-pointer rounded-md p-1 hover:bg-gray-200 hover:dark:bg-gray-700'
-                  onClick={() => onHeaderClick('name')}
-                >
-                  Name
-                  <span className='ml-2 flex-none rounded text-gray-900 dark:text-gray-50'>
-                    <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
-                  </span>
-                </div>
-              </th>
-              <th
-                scope='col'
-                className='px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-50'
-              >
-                <div
-                  className='group inline-flex cursor-pointer rounded-md p-1 hover:bg-gray-200 hover:dark:bg-gray-700'
-                  onClick={() => onHeaderClick('chainId')}
-                >
-                  Chain ID
-                  <span className='ml-2 flex-none rounded text-gray-900 dark:text-gray-50'>
-                    <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
-                  </span>
-                </div>
-              </th>
-              <th scope='col' className='relative pr-4'>
-                <span className='sr-only'>Edit</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody className='cursor-pointer divide-y divide-gray-200 bg-white'>
-            {filteredDeployments.map((deployment) => (
-              <tr
-                key={deployment.chainId}
-                className='group dark:bg-gray-800'
-                onClick={() => window.open(deployment.url, '_blank', 'noopener,noreferrer')}
-              >
-                <td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-50 sm:pl-6'>
-                  {deployment.name}
-                </td>
-                <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400'>
-                  {deployment.chainId}
-                </td>
-                <td className='relative pr-4'>
-                  <div className='hyperlink opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
-                    <ArrowTopRightOnSquareIcon className='h-4 w-4' aria-hidden='true' />
-                    <span className='sr-only'>Open contract in block explorer</span>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {filteredDeployments.length === 0 && noDeploymentsDiv()}
+      {filteredDeployments.length > 0 && showDeploymentsDiv()}
     </>
   );
 

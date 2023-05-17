@@ -17,18 +17,18 @@ const Home = () => {
   return (
     <>
       <Head />
-      <div className='mt-6 sm:mt-20 w-full max-w-screen-lg mx-auto'>
+      <div className='mx-auto mt-6 w-full max-w-screen-lg sm:mt-20'>
         <h1 className='mb-10 text-center text-3xl font-bold text-blue-800 dark:text-blue-300 sm:text-4xl'>
           {SITE_DESCRIPTION}
         </h1>
-        <dl className='flex justify-center flex-wrap sm:flex-nowrap text-center'>
+        <dl className='flex flex-wrap justify-center text-center sm:flex-nowrap'>
           {cards.map((card) => (
             <Link
               key={card.id}
               href={card.href}
               rel={card.href.startsWith('http') ? 'noopener noreferrer' : undefined}
               target={card.href.startsWith('http') ? '_blank' : undefined}
-              className='m-4 w-3/4 sm:w-full cursor-pointer gap-y-4 rounded-xl border border-blue-800/0 bg-gray-50 p-6 shadow hover:border-blue-800 dark:border-blue-300/0 dark:bg-gray-700 dark:hover:border-blue-300'
+              className='m-4 w-3/4 cursor-pointer gap-y-4 rounded-xl border border-blue-800/0 bg-gray-50 p-6 shadow hover:border-blue-800 dark:border-blue-300/0 dark:bg-gray-700 dark:hover:border-blue-300 sm:w-full'
             >
               <dd className='text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-50 sm:text-3xl'>
                 {card.title}
