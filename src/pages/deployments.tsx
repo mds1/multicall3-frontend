@@ -124,7 +124,7 @@ const Deployments = () => {
           <br />
           please{' '}
           <ExternalLink
-            href='https://github.com/mds1/multicall/issues/new'
+            href='https://github.com/mds1/multicall/issues/new?assignees=mds1&labels=Deployment+Request&projects=&template=deployment_request.yml'
             text='open an issue'
           />{' '}
           on GitHub.
