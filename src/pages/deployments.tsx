@@ -80,17 +80,15 @@ const Deployments = () => {
   const loadingDiv = () => (
     <div className='mt-8'>
       <LoadingSpinner />
-      <p className='mt-4 italic text-gray-400'>Fetching deployments...</p>
+      <p className='text-secondary mt-4 italic'>Fetching deployments...</p>
     </div>
   );
 
   const errorDiv = () => (
     <main className='grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8'>
       <div className='text-center'>
-        <h1 className='mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50 sm:text-5xl'>
-          Oops!
-        </h1>
-        <p className='mt-6 text-base leading-7 text-gray-600 dark:text-gray-400'>
+        <h1 className='text-primary mt-4 text-3xl font-bold tracking-tight sm:text-5xl'>Oops!</h1>
+        <p className='text-secondary mt-6 text-base leading-7'>
           Something went wrong fetching the list of deployments.
         </p>
         <div className='mt-10 flex items-center justify-center gap-x-6'>
@@ -102,7 +100,7 @@ const Deployments = () => {
           </button>
           <ExternalLink
             href={deploymentsUrl}
-            className='flex items-center text-sm font-semibold text-gray-900 dark:text-gray-50'
+            className='text-primary flex items-center text-sm font-semibold'
           >
             <>
               View as JSON <ArrowTopRightOnSquareIcon className='ml-2 h-4 w-4' aria-hidden='true' />
@@ -116,10 +114,8 @@ const Deployments = () => {
   const noDeploymentsDiv = () => (
     <div className='mt-10 grid min-h-full place-items-center'>
       <div className='text-center'>
-        <p className='font-bold tracking-tight text-gray-900 dark:text-gray-50'>
-          No deployments found
-        </p>
-        <p className='mt-2 text-base leading-7 text-gray-600 dark:text-gray-400'>
+        <p className='text-primary font-bold tracking-tight'>No deployments found</p>
+        <p className='text-secondary mt-2 text-base leading-7'>
           If you need Multicall3 deployed on a new chain,
           <br />
           please{' '}
@@ -140,28 +136,25 @@ const Deployments = () => {
           <tr>
             <th
               scope='col'
-              className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-50 sm:pl-6'
+              className='text-primary py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6'
             >
               <div
                 className='group inline-flex cursor-pointer rounded-md p-1 hover:bg-gray-200 hover:dark:bg-gray-700'
                 onClick={() => onHeaderClick('name')}
               >
                 Name
-                <span className='ml-2 flex-none rounded text-gray-900 dark:text-gray-50'>
+                <span className='text-primary ml-2 flex-none rounded'>
                   <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
                 </span>
               </div>
             </th>
-            <th
-              scope='col'
-              className='px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-50'
-            >
+            <th scope='col' className='text-primary px-3 py-3.5 text-left text-sm font-semibold'>
               <div
                 className='group inline-flex cursor-pointer rounded-md p-1 hover:bg-gray-200 hover:dark:bg-gray-700'
                 onClick={() => onHeaderClick('chainId')}
               >
                 Chain ID
-                <span className='ml-2 flex-none rounded text-gray-900 dark:text-gray-50'>
+                <span className='text-primary ml-2 flex-none rounded'>
                   <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
                 </span>
               </div>
@@ -178,10 +171,10 @@ const Deployments = () => {
               className='group dark:bg-gray-800'
               onClick={() => window.open(deployment.url, '_blank', 'noopener,noreferrer')}
             >
-              <td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-50 sm:pl-6'>
+              <td className='text-primary whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6'>
                 {deployment.name}
               </td>
-              <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400'>
+              <td className='text-secondary whitespace-nowrap px-3 py-4 text-sm'>
                 {deployment.chainId}
               </td>
               <td className='relative pr-4'>
@@ -200,7 +193,7 @@ const Deployments = () => {
   const deploymentsTableDiv = () => (
     <>
       <div className='relative mb-4'>
-        <span className='pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 transform text-xs text-gray-500 opacity-60 dark:text-gray-300 dark:opacity-70'>
+        <span className='text-secondary pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 transform text-xs opacity-60 dark:opacity-70'>
           {modifierKey}K
         </span>
         <input

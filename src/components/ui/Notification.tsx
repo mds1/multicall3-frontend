@@ -28,9 +28,9 @@ type Props = {
 export const Notification = ({ show, setShow, kind = 'info', title, description }: Props) => {
   const { icon: Icon, iconColor } = getKindInfo(kind);
 
-  const bgColor = 'bg-white dark:bg-gray-800';
-  const titleTextColor = 'text-gray-900 dark:text-gray-50';
-  const descriptionTextColor = 'text-gray-500 dark:text-gray-400';
+  const bgColor = 'bg-gray-50 dark:bg-gray-800';
+  const titleTextColor = 'text-primary';
+  const descriptionTextColor = 'text-secondary';
 
   return (
     <>
@@ -66,7 +66,7 @@ export const Notification = ({ show, setShow, kind = 'info', title, description 
                   <div className='ml-4 flex flex-shrink-0'>
                     <button
                       type='button'
-                      className={`inline-flex rounded-md ${bgColor} ${titleTextColor} hover:text-gray-500 focus:outline-none`}
+                      className={`inline-flex rounded-md ${bgColor} ${titleTextColor} text-hover focus:outline-none`}
                       onClick={() => {
                         setShow(false);
                       }}

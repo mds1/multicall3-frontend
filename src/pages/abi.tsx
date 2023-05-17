@@ -176,8 +176,8 @@ const Abi = () => {
                     className={classNames(
                       'group inline-flex items-center px-1 py-3 text-sm font-medium',
                       selected
-                        ? 'border-b-2 border-b-blue-800 text-blue-800 outline-none dark:border-b-blue-300 dark:text-blue-300'
-                        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                        ? 'text-accent border-b-2 border-b-blue-800 outline-none dark:border-b-blue-300'
+                        : 'text-secondary text-hover'
                     )}
                   >
                     <Image

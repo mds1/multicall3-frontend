@@ -15,7 +15,7 @@ export const Header = () => {
     return (
       <Link
         href={props.path}
-        className={`text-base text-gray-500 dark:text-gray-400 ${activeClass} ${props.className}`}
+        className={`text-secondary text-base ${activeClass} ${props.className}`}
         target={props.path.startsWith('http') ? '_blank' : undefined}
       >
         {props.label}
@@ -47,24 +47,24 @@ export const Header = () => {
           <div>
             <Link href='/' className='flex'>
               <span className='sr-only'>{COMPANY_NAME}</span>
-              <span className='font-mono font-bold text-blue-800 dark:text-blue-300'>
-                {SITE_NAME}
-              </span>
+              <span className='text-accent font-mono font-bold'>{SITE_NAME}</span>
               {/* <Image className="h-8 w-auto rounded-full sm:h-10" src={logo} alt="logo" /> */}
             </Link>
           </div>
           <div>
-            <NavLink path='/deployments' label='Deployments' className='mr-4' />
-            <NavLink path='/abi' label='ABI' className='mr-4' />
-            <NavLink path='https://github.com/mds1/multicall' label='Documentation' />
+            <NavLink path='/deployments' label='Deployments' className='text-hover mr-4' />
+            <NavLink path='/abi' label='ABI' className='text-hover mr-4' />
+            <NavLink
+              path='https://github.com/mds1/multicall'
+              className='text-hover'
+              label='Documentation'
+            />
           </div>
         </div>
       </div>
       <div className='flex items-center justify-center'>
         <div className='mx-auto h-auto w-auto rounded-full text-center'>
-          <p className='whitespace-nowrap text-xs text-blue-800 opacity-70 dark:text-blue-300'>
-            Deployment Address
-          </p>
+          <p className='text-accent whitespace-nowrap text-xs opacity-80'>Deployment Address</p>
           <div className='flex items-center'>
             <pre className='text-sm'>
               <code className='font-semibold'>{MULTICALL_ADDRESS}</code>

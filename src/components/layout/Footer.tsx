@@ -30,10 +30,10 @@ const navigation = [
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className='bg-gray-100 dark:bg-gray-900'>
+    <footer className='bg-primary'>
       <div className='flex flex-wrap items-center justify-between px-4 py-6 sm:px-6 md:justify-between lg:px-8'>
         <div className='col-span-full md:order-2'>
-          <p className='text-center text-sm text-gray-400'>
+          <p className='text-secondary text-center text-sm'>
             &copy; {currentYear} <ExternalLink href={COMPANY_URL} text={COMPANY_NAME} />. All rights
             reserved.
           </p>
@@ -41,11 +41,7 @@ export const Footer = () => {
 
         <div className='mt-8 flex justify-center space-x-6 md:order-3 md:mt-0'>
           {navigation.map((item) => (
-            <ExternalLink
-              key={item.name}
-              href={item.href}
-              className='text-gray-400 hover:text-gray-500 dark:text-gray-50'
-            >
+            <ExternalLink key={item.name} href={item.href} className='text-secondary text-hover'>
               <>
                 <span className='sr-only'>{item.name}</span>
                 <item.icon className='h-6 w-6' aria-hidden='true' />
@@ -54,7 +50,7 @@ export const Footer = () => {
           ))}
         </div>
 
-        {<ThemeSwitcher className='mt-8 md:order-1 md:mt-0' />}
+        {<ThemeSwitcher className='text-hover mt-8 md:order-1 md:mt-0' />}
       </div>
     </footer>
   );

@@ -10,7 +10,7 @@ export const ThemeSwitcher = ({ className = '' }) => {
   }, [resolvedTheme, setTheme]);
 
   return (
-    <button onClick={toggleTheme} className={`${className} text-gray-500 dark:text-gray-400`}>
+    <button onClick={toggleTheme} className={`${className} text-secondary`}>
       {resolvedTheme === 'light' && <MoonIcon className='h-6 w-6' />}
       {resolvedTheme !== 'light' && <SunIcon className='h-6 w-6' />}
     </button>
