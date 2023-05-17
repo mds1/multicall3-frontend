@@ -5,7 +5,7 @@ interface Props {
   children: JSX.Element;
 }
 
-export default function Layout({ children }: Props) {
+export const Layout = ({ children }: Props) => {
   return (
     <div className='flex min-h-screen flex-col bg-gray-100 dark:bg-gray-900'>
       <Header />
@@ -15,4 +15,4 @@ export default function Layout({ children }: Props) {
       <Footer />
     </div>
   );
-}
+};

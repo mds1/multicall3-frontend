@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-export function Head(props: Props) {
+export const Head = (props: Props) => {
   return (
     <NextHead>
       <title>{props.title ? `${props.title} | ${SITE_NAME}` : SITE_NAME}</title>
@@ -14,4 +14,4 @@ export function Head(props: Props) {
       <meta name='viewport' content='width=device-width, initial-scale=1' />
     </NextHead>
   );
-}
+};
