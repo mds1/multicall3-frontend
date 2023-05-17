@@ -7,6 +7,9 @@ dependencies:
   '@heroicons/react':
     specifier: ^2.0.17
     version: 2.0.17(react@18.2.0)
+  '@vercel/analytics':
+    specifier: ^1.0.1
+    version: 1.0.1
   next:
     specifier: 13.4.0
     version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -545,6 +548,10 @@ packages:
       '@typescript-eslint/types': 5.59.2
       eslint-visitor-keys: 3.4.0
     dev: true
+
+  /@vercel/analytics@1.0.1:
+    resolution: {integrity: sha512-Ux0c9qUfkcPqng3vrR0GTrlQdqNJ2JREn/2ydrVuKwM3RtMfF2mWX31Ijqo1opSjNAq6rK76PwtANw6kl6TAow==}
+    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.8.2):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
