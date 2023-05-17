@@ -100,14 +100,14 @@ const Deployments = () => {
           >
             Try again
           </button>
-          <a
+          <ExternalLink
             href={deploymentsUrl}
-            target='_blank'
-            rel='noopener noreferrer'
             className='flex items-center text-sm font-semibold text-gray-900 dark:text-gray-50'
           >
-            View as JSON <ArrowTopRightOnSquareIcon className='ml-2 h-4 w-4' aria-hidden='true' />
-          </a>
+            <>
+              View as JSON <ArrowTopRightOnSquareIcon className='ml-2 h-4 w-4' aria-hidden='true' />
+            </>
+          </ExternalLink>
         </div>
       </div>
     </main>

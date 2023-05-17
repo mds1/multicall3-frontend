@@ -41,16 +41,16 @@ export const Footer = () => {
 
         <div className='mt-8 flex justify-center space-x-6 md:order-3 md:mt-0'>
           {navigation.map((item) => (
-            <a
+            <ExternalLink
               key={item.name}
               href={item.href}
-              target='_blank'
-              rel='noreferrer'
-              className='text-gray-400 hover:text-gray-500'
+              className='text-gray-400 hover:text-gray-500 dark:text-gray-50'
             >
-              <span className='sr-only'>{item.name}</span>
-              <item.icon className='h-6 w-6' aria-hidden='true' />
-            </a>
+              <>
+                <span className='sr-only'>{item.name}</span>
+                <item.icon className='h-6 w-6' aria-hidden='true' />
+              </>
+            </ExternalLink>
           ))}
         </div>
 
