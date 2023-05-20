@@ -81,7 +81,7 @@ const indexToHash = (index: number) => {
 
 const Abi = () => {
   // -------- Syntax Highlighting --------
-  const { theme } = useTheme();
+  const { resolvedTheme: theme } = useTheme();
   const [selectedTab, setSelectedTab] = useState(hashToIndex());
   const [showNotification, setShowNotification] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
