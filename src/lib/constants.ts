@@ -1,7 +1,7 @@
 export const SITE_NAME = 'Multicall3';
 export const SITE_DESCRIPTION = 'Batch contract calls on any chain.';
 export const COMPANY_NAME = 'Matt Solomon';
-export const COMPANY_URL = 'https://mattsolomon.dev/';
+export const COMPANY_URL = 'https://twitter.com/msolomon44';
 export const GITHUB_URL = 'https://github.com/mds1/multicall';
 export const TWITTER_URL = 'https://twitter.com/msolomon44';
 
