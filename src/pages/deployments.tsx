@@ -8,6 +8,7 @@ type Deployment = {
   name: string;
   chainId: number;
   url: string;
+  address?: `0x${string}`;
 };
 
 const Deployments = () => {
@@ -171,8 +172,13 @@ const Deployments = () => {
               className='group dark:bg-gray-800'
               onClick={() => window.open(deployment.url, '_blank', 'noopener,noreferrer')}
             >
-              <td className='text-primary whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6'>
+              <td className='text-primary flex flex-col whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6'>
                 {deployment.name}
+                {deployment.address && (
+                  <p className='text-secondary text-xs font-normal'>
+                    {`${deployment.address?.slice(0, 6)}...${deployment.address?.slice(-4)}`}
+                  </p>
+                )}
               </td>
               <td className='text-secondary whitespace-nowrap px-3 py-4 text-sm'>
                 {deployment.chainId}
@@ -187,6 +193,18 @@ const Deployments = () => {
           ))}
         </tbody>
       </table>
+      <div className='max-w-sm'>
+        <p className='text-secondary py-2 text-xs font-normal'>
+          Showing {filteredDeployments.length} of {deployments.length} deployments.
+          {filteredDeployments.some((deployment) => deployment.address) && (
+            <span>
+              {' '}
+              Deployments with an address underneath are unofficial deployments on chains that do
+              not support deployments to the same address as Ethereum Mainnet.
+            </span>
+          )}
+        </p>
+      </div>
     </div>
   );
 
@@ -199,7 +217,7 @@ const Deployments = () => {
         <input
           type='text'
           className='block w-full rounded-md border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500'
-          placeholder='Search...'
+          placeholder='Chain name or ID...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           ref={searchInputRef}
