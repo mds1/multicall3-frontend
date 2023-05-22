@@ -15,10 +15,9 @@ const Deployments = () => {
   // -------- Fetch deployments --------
   const [deployments, setDeployments] = useState([] as Deployment[]);
   const [isLoading, setIsLoading] = useState(true);
-  const deploymentsUrl =
-    'https://github.com/mds1/multicall/blob/chore/readme-and-examples/deployments.json';
+  const deploymentsUrl = 'https://github.com/mds1/multicall/blob/main/deployments.json';
   const deploymentsUrlRaw =
-    'https://raw.githubusercontent.com/mds1/multicall/chore/readme-and-examples/deployments.json';
+    'https://raw.githubusercontent.com/mds1/multicall/main/deployments.json';
 
   useEffect(() => {
     setIsLoading(true);
