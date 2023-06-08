@@ -193,7 +193,7 @@ const Deployments = () => {
         </tbody>
       </table>
       <div className='max-w-sm'>
-        <p className='text-secondary py-2 text-xs font-normal'>
+        <p className='text-secondary p-2 text-xs font-normal'>
           Showing {filteredDeployments.length} of {deployments.length} deployments.
           {filteredDeployments.some((deployment) => deployment.address) && (
             <span>
