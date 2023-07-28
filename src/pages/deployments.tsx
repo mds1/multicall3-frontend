@@ -167,7 +167,7 @@ const Deployments = () => {
         <tbody className='cursor-pointer divide-y divide-gray-200 bg-white'>
           {filteredDeployments.map((deployment) => (
             <tr
-              key={deployment.chainId}
+              key={`${deployment.chainId}-${deployment.name}`}
               className='group dark:bg-gray-800'
               onClick={() => window.open(deployment.url, '_blank', 'noopener,noreferrer')}
             >
